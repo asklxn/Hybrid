@@ -1,0 +1,214 @@
+:root {
+    --primary-color: #4A90E2;
+    --background-color: #f4f7f9;
+    --text-color: #333;
+    --card-background: #fff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-menu .nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* 데스크톱과 모바일 모두에서 초기에는 숨김 */
+    display: none; 
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    background-color: rgba(74, 144, 226, 0.95);
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 8px 8px;
+}
+
+/* 메뉴가 활성화(클릭)되었을 때 보이게 함 */
+.nav-menu .nav-list.active {
+    display: flex;
+}
+
+.nav-menu .nav-list li {
+    margin: 0.5rem 0;
+}
+
+.nav-menu .nav-list a {
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.nav-menu .nav-list a:hover {
+    background-color: #3876b5;
+}
+
+/* 햄버거 메뉴는 항상 보이게 설정 */
+.hamburger-menu {
+    display: flex; /* <-- 데스크톱에서도 항상 보이도록 변경 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+}
+
+.hamburger-menu .bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.page-section {
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    box-shadow: var(--shadow);
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.page-section:first-of-type {
+    margin-top: 4rem;
+}
+
+h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.content-wrapper {
+    text-align: center;
+}
+
+.media-container {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.media-container h3 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+audio, video {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.media-desc {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.certification-list, .project-item, .portfolio-item {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.certification-list:hover, .project-item:hover, .portfolio-item:hover {
+    transform: translateY(-5px);
+}
+
+.portfolio-item a {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.portfolio-item a:hover {
+    background-color: #3876b5;
+}
+
+/* 모바일 반응형 디자인 */
+@media (max-width: 768px) {
+    .nav-menu .nav-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: rgba(74, 144, 226, 0.95);
+        text-align: center;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-menu .nav-list.active {
+        display: flex;
+    }
+
+    .nav-menu .nav-list li {
+        margin: 0.5rem 0;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
