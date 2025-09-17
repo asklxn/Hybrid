@@ -1,0 +1,225 @@
+﻿/* 스타일 초기화 및 전체 레이아웃 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0d1a2d; /* 어두운 배경으로 유리 효과 강조 */
+    color: #e0e0e0; /* 텍스트 색상 변경 */
+    font-family: 'Montserrat', 'Nanum Gothic', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative; /* 가상 요소 기준점 */
+}
+
+/* 역동적인 배경 애니메이션 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #3498db, #8e44ad);
+    animation: move-bg 20s ease infinite alternate;
+    z-index: -2; /* 배경이므로 가장 뒤로 */
+    opacity: 0.3; /* 투명도를 줘서 은은하게 */
+}
+
+@keyframes move-bg {
+    from {
+        background-position: 0% 50%;
+    }
+    to {
+        background-position: 100% 50%;
+    }
+}
+
+/* 헤더와 푸터 */
+header, footer {
+    text-align: center;
+    padding: 25px 0;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4); /* 투명도 적용 */
+    backdrop-filter: blur(10px); /* 유리 재질감 효과 */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin: 20px;
+}
+
+/* 푸터 위치 고정 해제 */
+footer {
+    position: relative;
+    margin-top: 40px;
+    bottom: auto;
+}
+
+/* 타이틀 및 헤딩 */
+h1 {
+    font-size: 38px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    padding: 15px;
+    color: white;
+}
+
+h2 {
+    font-size: 18px;
+    color: white;
+    margin-top: 10px;
+}
+
+h3 {
+    font-size: 24px;
+    color: #3498db; /* 강조색을 배경 그라데이션과 통일 */
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+    margin: 25px 0 15px 0;
+    text-align: left;
+    transition: color 0.3s ease; /* 호버 시 색상 전환 효과 */
+}
+
+h3:hover {
+    color: #8e44ad;
+}
+
+/* 내비게이션 - 중앙 정렬 및 호버 애니메이션 */
+nav {
+    display: flex; /* flexbox 적용 */
+    justify-content: center; /* 중앙 정렬 */
+    margin: 20px 0;
+}
+
+nav > span > a {
+    font-weight: bold;
+    margin: 0 15px; /* 간격 넓게 */
+    padding: 10px 20px;
+    border: none;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    border-radius: 20px; /* 둥근 버튼 */
+    transition: background 0.3s ease, transform 0.3s ease; /* 호버 애니메이션 */
+}
+
+nav > span > a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    transform: translateY(-3px); /* 위로 살짝 올라가는 효과 */
+}
+
+/* 콘텐츠 영역 및 유리 재질감 */
+.content {
+    clear: both;
+    margin: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* 투명도 적용 */
+    backdrop-filter: blur(15px); /* 유리 재질감 효과 */
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+/* 페이지별 스타일 */
+.section1 ul li {
+    list-style-type: none; /* 기존 리스트 마커 제거 */
+    position: relative; /* 가상 요소의 기준점 설정 */
+    padding-left: 20px; /* 텍스트 시작 위치 조정 */
+    margin-bottom: 10px; /* 각 항목 간 간격 */
+}
+
+.section1 ul li::before {
+    content: '•'; /* 점(•)으로 변경. 원하는 유니코드 문자로 변경 가능 */
+    position: absolute;
+    left: 0;
+    font-size: 1.2em; /* 크기 조절 */
+    line-height: 1;
+    color: #3498db; /* 강조색과 통일 */
+}
+
+/* mintro.html */
+#stu-pic {
+    width: 6em;
+    height: 8em;
+    display: block;
+    margin: 0 auto 20px auto;
+    border-radius: 50%; /* 원형으로 변경 */
+    border: 3px solid #3498db; /* 강조색 테두리 */
+}
+
+/* 인적사항 테이블 */
+#year-table {
+    table-layout: auto;
+    width: 80%;
+    border-collapse: separate;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.05); /* 투명한 배경 */
+    border-radius: 10px;
+}
+#year-table thead {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* 로고 위치 및 스타일 */
+#logo {
+    position: relative;
+    display: block;
+    margin: 20px auto;
+    opacity: 0.7; /* 약간 투명하게 */
+    transition: opacity 0.5s ease;
+}
+
+#logo:hover {
+    opacity: 1; /* 호버 시 불투명하게 */
+}
+
+/* 참조 링크 */
+aside {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.portal {
+    border-radius: 5px; /* 모서리를 부드럽게 */
+    transition: transform 0.3s ease;
+}
+
+.portal:hover {
+    transform: scale(1.1); /* 호버 시 확대 */
+}
+
+/* mstudy.html */
+video {
+    margin: 10px 0;
+    width: 100%; /* 너비를 100%로 변경 */
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* mcareer.html */
+.semi-pic {
+    width: 4em;
+    height: 3em;
+    border-radius: 5px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+#pic-container {
+    overflow: hidden;
+    display: flex; /* flexbox로 정렬 */
+    justify-content: space-around; /* 간격 동일하게 */
+    margin: 20px 0;
+}
+#pic-container:hover {
+    height: auto;
+}
+#pic1:hover, #pic2:hover, #pic3:hover {
+    transform: scale(1.5);
+    box-shadow: 0 0 15px #3498db; /* 호버 시 그림자 추가 */
+}
