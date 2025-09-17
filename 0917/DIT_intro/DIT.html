@@ -1,0 +1,235 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>학과 소개 페이지</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<style>
+    li { list-style:none; }
+  .picture { list-style:none; padding:0; margin:0; }
+  .picture li { float:left; width:50%;}
+  .picture li a {display:block; margin:5px; border: 1px }
+  .picture li img { display:block; width:100%;  height:auto;}
+  .picture li img:hover { display:block; width:100%;  height:auto;} 
+  /* 교수님 카드 스타일 */
+  .professor-card {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+  }
+  .professor-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  .professor-info {
+    flex-grow: 1;
+  }
+  .professor-info h4 {
+    margin: 0 0 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+  }
+  .professor-info p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+  }
+</style>
+</head>
+
+<body>
+<div data-theme="b">
+    <div data-role="page" id="home">
+        <div data-role="header" data-theme="b">
+            <h1>[동의과학대학교] 컴퓨터소프트웨어학과</h1>
+        </div>
+        <div data-role="content" style="text-align:center">
+            <img src="main_banner.jpg">
+            <ul data-role="listview" data-inset="true">
+                <li><a href="#intro">학과 소개</a></li>
+                <li><a href="#movie">학과 영상</a></li>
+                <li><a href="#wizard3-1">학과 음성</a></li>
+                <li><a href="#gallery">학과 사진</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <h1>[컴퓨터소프트웨어학과]_김종현</h1>
+        </div>
+    </div>
+    
+    <div data-role="page" id="intro" data-theme="b">
+        <div data-role="header" data-theme="b">
+            <a href="#home" data-icon="arrow-l" data-direction="reverse">처음</a>         
+            <h1>학과 소개</h1>
+        </div>
+        <div data-role="content">
+                <div style="text-align:center">
+                    <img src="department_intro.jpg">
+                </div>           
+            <div data-role="collapsible-set" data-theme="b" data-content-theme="e">
+                <div data-role="collapsible" data-collapsed="false">
+                    <h3>학과 정보</h3>
+                    <p>컴퓨터소프트웨어과는 웹 · 모바일앱 · 데이터베이스 · 인공지능 · 사물인터넷 · 클라우드컴퓨팅 등 스마트 IT 산업 분야의 실력있는 소프트웨어 개발 전문가 양성을 목표로 교육하고 있습니다.
+                        학생들은 웹 및 모바일 앱개발, 프로그래밍 언어, 데이터베이스, 소프트웨어 설계 및 모델링 등 체계적인 이론과 실습을 통하여 기초 능력을 학습하고, 그 바탕 위에서 다양한 팀 프로젝트 통해
+                        심화 학습 및 현장 실무 능력을 키우고 있습니다.
+                    </p>
+                </div>
+                <div data-role="collapsible">
+                    <h3>교수진 소개</h3>
+                    <div class="professor-card">
+                        <img src="professor_1.jpg" alt="교수님 사진">
+                        <div class="professor-info">
+                            <h4>허봉식 교수님</h4>
+                            <p>담당과목: C 프로그래밍, 자료구조 등</p>
+                            <p>이메일: gdhong@univ.ac.kr</p>
+                        </div>
+                    </div>
+                    <div class="professor-card">
+                        <img src="professor_2.jpg" alt="교수님 사진">
+                        <div class="professor-info">
+                            <h4>김진숙 교수님</h4>
+                            <p>담당과목: 데이터베이스, 사물인터넷프로그래밍 등</p>
+                            <p>이메일: csk@univ.ac.kr</p>
+                        </div>
+                    </div>
+                    <div class="professor-card">
+                        <img src="professor_3.jpg" alt="교수님 사진">
+                        <div class="professor-info">
+                            <h4>김경민 교수님</h4>
+                            <p>담당과목: 컴퓨터구조, 시스템분석및설계 등</p>
+                            <p>이메일: yhlee@univ.ac.kr</p>
+                        </div>
+                    </div>
+                    <div class="professor-card">
+                        <img src="professor_4.jpg" alt="교수님 사진">
+                        <div class="professor-info">
+                            <h4>김주현 교수님</h4>
+                            <p>전공: 자바프로그래밍, 모바일앱개발 등</p>
+                            <p>이메일: smpark@univ.ac.kr</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-role="collapsible">
+                    <h3>졸업 후 진로</h3>
+                    <div class="ui-bar ui-bar-a">국내 취업</div>
+                    <p>다양한 산학협동으로 최고의 취업을 지원합니다.</p>
+                    <ul data-role="listview" data-inset="true">
+                        <li>삼성전자㈜, LG㈜ 등의 대기업 및 의료기관, 공공기관, 중소 기업의 전산업무 담당자 및 전문 프로그래머</li>
+                        <li>회계법인, 제2금융권, 새마을금고, 일반기업의 사무 행정직</li>
+                        <li>웅진, 대교의 방과후 컴퓨터 교사</li>
+                    </ul>
+                    <div class="ui-bar ui-bar-a">해외 취업</div>
+                    <p>부산시와 정부지원 해외 인턴쉽을 통한 해외 취업의 기회를 제공합니다.</p>
+                    <ul data-role="listview" data-inset="true">
+                        <li>일본 도쿄㈜PENTAIN, 오사카㈜JTEC, ㈜TIC, ㈜UNIWELL, ㈜Bridge Japan 등의 프로그램 개발자 및 데이터베이스 관리자</li>
+                        <li>일본 오사카 NEC, SANYO, 新日本製鐵(珠)등의 시스템 운영 관리자</li>
+                    </ul>
+                    <div class="ui-bar ui-bar-a">진학</div>
+                    <p>이미 500여명 이상의 선배들이 4년제 학위를 취득하였습니다.</p>
+                    <ul data-role="listview" data-inset="true">
+                        <li>동의대, 동아대와의 2+2 연계 정원 외 편입과정 운영</li>
+                        <li>우리대학의 학사학위과정을 통한 학위 취득</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <h1>[학과 이름]_홍길동</h1>
+        </div>       
+    </div>
+    
+    <div data-role="page" id="movie" data-theme="b">
+        <div data-role="header" data-position="fixed" data-theme="b">
+            <a href="#home" data-icon="arrow-l" data-direction="reverse">처음</a>
+            <h1>학과 영상</h1>
+        </div>
+        <div data-role="content">
+            <div class="ui-bar ui-bar-a">학과 홍보 동영상</div><br/>
+            <ul style="list-style: none; padding: 0;">
+                <li><iframe width="100%" height="240" src="https://www.youtube.com/embed/SGXx89fzkIA"></iframe></li>
+            </ul>
+            <div class="ui-bar ui-bar-a">재학생 작품 동영상</div><br/>
+            <ul style="list-style: none; padding: 0;">
+              <li>
+                <li><iframe width="100%" height="240" src="https://www.youtube.com/embed/aNrhiBbrwjM"></iframe></li>
+              </li>
+            </ul>
+        </div>
+        <div data-role="footer" data-theme="b">
+        </div>
+    </div>
+    
+    <div data-role="page" id="wizard3-1" data-theme="b">
+        <div data-role="header" data-theme="b">
+            <a href="#home" data-icon="arrow-l" data-direction="reverse">처음</a>
+            <h1>학과 음성1</h1>
+        </div>
+        <div data-role="content">
+            <div class="ui-bar ui-bar-e">재학생 인터뷰</div><br/>
+            <audio controls width="100%" preload="metadata">
+                <source src="student_interview.mp3" type="audio/mp3">
+            </audio>     
+            <img src="event_3.jpg" alt="" width="100%">
+        </div>
+        <div data-role="footer" data-theme="b">
+            <a href="#wizard3-2" data-transition="slide">다음</a>
+        </div>
+    </div>
+
+    <div data-role="page" id="wizard3-2" data-theme="b">
+        <div data-role="header" data-theme="b">
+            <a href="#home" data-icon="arrow-l" data-direction="reverse">처음</a>
+            <h1>학과 음성2</h1>
+        </div>
+        <div data-role="content">
+            <div class="ui-bar ui-bar-e">교수님 환영 인사</div><br/>
+            <audio controls width="100%" preload="metadata">
+                <source src="professor_greeting.mp3" type="audio/mp3">
+            </audio>              
+            <img src="field_trip_4.jpg" alt="" width="100%">
+        </div>
+        <div data-role="footer" data-theme="b">
+            <a href="#wizard3-1"  data-direction="reverse">이전</a>
+            <a href="#home">처음</a>
+        </div>
+    </div>
+
+    <div data-role="page" id="gallery"  data-theme="b">
+        <div data-role="header" data-position="fixed"  data-theme="b">
+            <a href="#home" data-icon="arrow-l" data-direction="reverse">처음</a>
+            <h1>학과 갤러리</h1>
+        </div>
+        <div data-role="content">
+            <ul class="picture">
+                <li><a href="lab_1.jpg" rel="external"><img src="lab_1.jpg" /></a></li> 
+                <li><a href="club_2.jpg" rel="external"><img src="club_2.jpg" /></a></li> 
+                <li><a href="event_3.jpg" rel="external"><img src="event_3.jpg" /></a></li> 
+                <li><a href="field_trip_4.jpg" rel="external"><img src="field_trip_4.jpg" /></a></li> 
+                <li><a href="5.jpg" rel="external"><img src="5.jpg" /></a></li> 
+                <li><a href="6.jpg" rel="external"><img src="6.jpg" /></a></li> 
+                <li><a href="7.jpg" rel="external"><img src="7.jpg" /></a></li> 
+                <li><a href="8.jpg" rel="external"><img src="8.jpg" /></a></li> 
+                <li><a href="9.jpg" rel="external"><img src="9.jpg" /></a></li>   
+                <li><a href="10.jpg" rel="external"><img src="10.jpg" /></a></li>    
+                <li><a href="11.jpg" rel="external"><img src="11.jpg" /></a></li>   
+                <li><a href="12.jpg" rel="external"><img src="12.jpg" /></a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <h1>[컴퓨터소프트웨어학과]_김종현</h1>
+        </div>       
+    </div>
+</div>  
+</body>
+</html>
