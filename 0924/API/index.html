@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘 미세먼지 예보 🌬️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 전체 스타일 및 폰트 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e0f2f7 0%, #e8eaf6 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+        }
+        /* 헤더 스타일 */
+        .header-content {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .date-info {
+            font-size: 1.2em;
+            color: #777;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .message-box {
+            font-size: 1.1em;
+            font-weight: 400;
+            color: #444;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        /* 메시지별 색상 */
+        .message-good { background-color: #d4edda; color: #155724; }
+        .message-normal { background-color: #fff3cd; color: #856404; }
+        .message-bad { background-color: #f8d7da; color: #721c24; }
+        .message-very-bad { background-color: #e2d4f5; color: #4b306b; }
+        
+        /* 카드 컨테이너 */
+        #forecast-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        /* 개별 카드 스타일 */
+        .forecast-card {
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .forecast-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        .region-name {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        .grade {
+            font-size: 1.5em;
+            font-weight: 500;
+            padding: 5px 0;
+            border-radius: 5px;
+        }
+        /* 등급별 카드 색상 및 텍스트 */
+        .good { background-color: #e6ffed; border: 1px solid #28a745; color: #28a745; }
+        .normal { background-color: #fff8e1; border: 1px solid #ffc107; color: #ffc107; }
+        .bad { background-color: #ffebeb; border: 1px solid #dc3545; color: #dc3545; }
+        .very-bad { background-color: #f1e6ff; border: 1px solid #6f42c1; color: #6f42c1; }
+        .unknown { background-color: #f0f0f0; border: 1px solid #999; color: #666; }
+        /* 로딩 스피너 */
+        .loading-spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 50px auto;
+            display: block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            text-align: center;
+            color: #dc3545;
+            font-size: 1.1em;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-content">
+            <div id="date-info" class="date-info"></div>
+            <h1>😷 오늘 미세먼지 예보 🌬️</h1>
+            <div id="message-box" class="message-box"></div>
+        </div>
+        
+        <div id="loading" class="loading-spinner"></div>
+        <div id="forecast-container">
+            </div>
+        <div id="error-display" class="error-message" style="display:none;"></div>
+    </div>
+
+    <script>
+        const serviceKey = 'eb3fe0ecf5b8e41900f5b508862729b504f50c1ce71910b50983a605f9d41afd';
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const searchDate = `${year}-${month}-${day}`;
+
+        const dayNames = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        const dayOfWeek = dayNames[today.getDay()];
+
+        const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDustFrcstDspth?serviceKey=${serviceKey}&returnType=json&numOfRows=100&pageNo=1&searchDate=${searchDate}&informCode=PM10`;
+
+        // 날짜 및 요일 표시
+        document.getElementById('date-info').textContent = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
+
+        async function fetchForecastData() {
+            const loadingSpinner = document.getElementById('loading');
+            const forecastContainer = document.getElementById('forecast-container');
+            const errorDisplay = document.getElementById('error-display');
+            const messageBox = document.getElementById('message-box');
+            
+            loadingSpinner.style.display = 'block';
+            forecastContainer.innerHTML = '';
+            errorDisplay.style.display = 'none';
+            messageBox.className = 'message-box'; // 기존 클래스 초기화
+            messageBox.textContent = '정보를 불러오는 중...';
+
+            try {
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`API 호출 실패: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                
+                if (data.response.header.resultCode !== '00') {
+                    throw new Error(`API 오류: ${data.response.header.resultMsg}`);
+                }
+
+                const items = data.response.body.items;
+
+                if (items && items.length > 0) {
+                    const forecastData = items[0]; 
+                    const gradesString = forecastData.informGrade;
+                    const gradesArray = gradesString.split(',').map(s => s.trim());
+
+                    let overallGrade = '';
+                    if (forecastData.informOverall.includes('좋음')) {
+                        overallGrade = '좋음';
+                    } else if (forecastData.informOverall.includes('보통')) {
+                        overallGrade = '보통';
+                    } else if (forecastData.informOverall.includes('나쁨')) {
+                        overallGrade = '나쁨';
+                    } else if (forecastData.informOverall.includes('매우나쁨')) {
+                        overallGrade = '매우나쁨';
+                    }
+
+                    // 문구 및 색상 업데이트
+                    let messageText = '';
+                    let messageClass = '';
+
+                    switch (overallGrade) {
+                        case '좋음':
+                            messageText = '🥳 공기가 매우 좋아요! 산책이나 야외 활동하기 좋은 날이에요.';
+                            messageClass = 'message-good';
+                            break;
+                        case '보통':
+                            messageText = '🙂 보통 수준의 공기예요. 평소처럼 활동해도 괜찮아요.';
+                            messageClass = 'message-normal';
+                            break;
+                        case '나쁨':
+                            messageText = '😥 공기가 탁하니, 외출 시 마스크를 착용하세요.';
+                            messageClass = 'message-bad';
+                            break;
+                        case '매우나쁨':
+                            messageText = '😷 공기가 매우 나빠요. 외출을 자제하고 실내에 머무르는 것이 좋아요.';
+                            messageClass = 'message-very-bad';
+                            break;
+                        default:
+                            messageText = '현재 대기 상태에 대한 메시지를 찾을 수 없습니다.';
+                            messageClass = '';
+                            break;
+                    }
+
+                    messageBox.textContent = messageText;
+                    messageBox.classList.add(messageClass);
+
+                    gradesArray.forEach(regionInfo => {
+                        const parts = regionInfo.split(':');
+                        if (parts.length !== 2) return;
+                        const region = parts[0].trim();
+                        const grade = parts[1].trim();
+                        
+                        let statusClass = 'unknown';
+                        if (grade.includes('좋음')) {
+                            statusClass = 'good';
+                        } else if (grade.includes('보통')) {
+                            statusClass = 'normal';
+                        } else if (grade.includes('나쁨')) {
+                            statusClass = 'bad';
+                        } else if (grade.includes('매우나쁨')) {
+                            statusClass = 'very-bad';
+                        }
+                        
+                        const cardDiv = document.createElement('div');
+                        cardDiv.className = `forecast-card ${statusClass}`;
+                        cardDiv.innerHTML = `
+                            <div class="region-name">${region}</div>
+                            <div class="grade">${grade}</div>
+                        `;
+                        forecastContainer.appendChild(cardDiv);
+                    });
+                } else {
+                    forecastContainer.innerHTML = '<p style="text-align:center; color:#777;">현재 미세먼지 예보 데이터를 찾을 수 없습니다.</p>';
+                    messageBox.textContent = '현재 예보 정보가 없어요.';
+                    messageBox.className = 'message-box';
+                }
+            } catch (error) {
+                console.error('데이터 불러오기 오류:', error);
+                errorDisplay.textContent = `데이터 로딩 중 오류가 발생했습니다: ${error.message}. 잠시 후 다시 시도해주세요.`;
+                errorDisplay.style.display = 'block';
+                forecastContainer.innerHTML = '';
+                messageBox.textContent = '';
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        }
+
+        fetchForecastData();
+    </script>
+</body>
+</html>
