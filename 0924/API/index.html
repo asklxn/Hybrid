@@ -150,7 +150,7 @@
         const dayNames = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
         const dayOfWeek = dayNames[today.getDay()];
 
-        const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDustFrcstDspth?serviceKey=${serviceKey}&returnType=json&numOfRows=100&pageNo=1&searchDate=${searchDate}&informCode=PM10`;
+        const url = `https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDustFrcstDspth?serviceKey=${serviceKey}&returnType=json&numOfRows=100&pageNo=1&searchDate=${searchDate}&informCode=PM10`;
 
         // 날짜 및 요일 표시
         document.getElementById('date-info').textContent = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
@@ -272,4 +272,5 @@
         fetchForecastData();
     </script>
 </body>
+
 </html>
